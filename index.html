@@ -43,12 +43,13 @@
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            background: #ec4899;
-            width: 16px;
-            height: 16px;
+            background: #FF7669;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             cursor: pointer;
-            margin-top: -4px;
+            margin-top: -2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         input[type="range"]::-moz-range-track {
@@ -58,12 +59,49 @@
         }
 
         input[type="range"]::-moz-range-thumb {
-            background: #ec4899;
+            background: #FF7669;
             border: none;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* 音量スライダー用の追加スタイル */
+        .volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #d1d5db;
+            outline: none;
+            margin: 6px 0;
+            padding: 0;
+            display: block;
+            position: relative;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF7669;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF7669;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -910,7 +948,8 @@
                                                     step="0.1"
                                                     value={bellVolume}
                                                     onChange={(e) => setBellVolume(parseFloat(e.target.value))}
-                                                    className="w-32 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                                    className="w-32 volume-slider"
+                                                    style={{ background: `linear-gradient(to right, #FF7669 0%, #FF7669 ${bellVolume * 100}%, #d1d5db ${bellVolume * 100}%, #d1d5db 100%)` }}
                                                 />
                                                 <span className="text-sm text-gray-600 w-10 text-right">
                                                     {Math.round(bellVolume * 100)}%
@@ -981,15 +1020,18 @@
                                                 <span className="text-sm font-medium text-gray-700">音量</span>
                                             </div>
                                             <div className="flex items-center gap-2">
-                                                <input
-                                                    type="range"
-                                                    min="0"
-                                                    max="1"
-                                                    step="0.1"
-                                                    value={bellVolume}
-                                                    onChange={(e) => setBellVolume(parseFloat(e.target.value))}
-                                                    className="w-32 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                                />
+                                                <div className="volume-slider-container w-32">
+                                                    <input
+                                                        type="range"
+                                                        min="0"
+                                                        max="1"
+                                                        step="0.1"
+                                                        value={bellVolume}
+                                                        onChange={(e) => setBellVolume(parseFloat(e.target.value))}
+                                                        className="w-full volume-slider"
+                                                        style={{ background: `linear-gradient(to right, #FF7669 0%, #FF7669 ${bellVolume * 100}%, #d1d5db ${bellVolume * 100}%, #d1d5db 100%)` }}
+                                                    />
+                                                </div>
                                                 <span className="text-sm text-gray-600 w-10 text-right">
                                                     {Math.round(bellVolume * 100)}%
                                                 </span>
@@ -1094,15 +1136,18 @@
                                         <label className="block text-sm font-medium text-gray-700 mb-3">ベル音量</label>
                                         <div className="flex items-center gap-3">
                                             <Volume2Icon size={20} className="text-gray-600" />
-                                            <input
-                                                type="range"
-                                                min="0"
-                                                max="1"
-                                                step="0.1"
-                                                value={bellVolume}
-                                                onChange={(e) => setBellVolume(parseFloat(e.target.value))}
-                                                className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-                                            />
+                                            <div className="volume-slider-container flex-1">
+                                                <input
+                                                    type="range"
+                                                    min="0"
+                                                    max="1"
+                                                    step="0.1"
+                                                    value={bellVolume}
+                                                    onChange={(e) => setBellVolume(parseFloat(e.target.value))}
+                                                    className="w-full volume-slider"
+                                                    style={{ background: `linear-gradient(to right, #FF7669 0%, #FF7669 ${bellVolume * 100}%, #d1d5db ${bellVolume * 100}%, #d1d5db 100%)` }}
+                                                />
+                                            </div>
                                             <span className="text-sm text-gray-600 w-12 text-right font-medium">
                                                 {Math.round(bellVolume * 100)}%
                                             </span>
